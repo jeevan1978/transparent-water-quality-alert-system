@@ -43,6 +43,9 @@ htmlcov/
 *.db
 models/*.pkl
 models/*.joblib
+!models/current_classifier.joblib
+!models/forecaster_6h.joblib
+!models/forecaster_24h.joblib
 models/*.onnx
 !models/README.md
 
