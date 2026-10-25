@@ -1,0 +1,86 @@
+# ==============================================================================
+# WATER QUALITY THRESHOLD CONFIGURATION (SIMULATED / EDUCATIONAL USE ONLY)
+# ==============================================================================
+# DISCLAIMER:
+# These thresholds are established for simulated telemetry and educational
+# modeling purposes. They DO NOT certify or guarantee real-world drinking water
+# potability or compliance with statutory public health standards.
+# ==============================================================================
+
+system:
+  version: "1.0.0"
+  mode: "simulation"
+  synthetic_data_only: true
+  description: "Thresholds for simulated water quality scoring, categorization, and alert generation."
+
+# Parameter standard limits based on typical surface/drinking water reference ranges (WHO / EPA guidelines)
+parameters:
+  ph:
+    unit: "pH"
+    min_safe: 6.5
+    max_safe: 8.5
+    critical_low: 6.0
+    critical_high: 9.0
+    weight: 1.0
+
+  turbidity:
+    unit: "NTU"
+    min_safe: 0.0
+    max_safe: 5.0
+    moderate_high: 10.0
+    critical_high: 15.0
+    weight: 1.2
+
+  dissolved_oxygen:
+    unit: "mg/L"
+    critical_low: 4.0
+    min_safe: 6.0
+    max_safe: 14.0
+    weight: 1.1
+
+  temperature:
+    unit: "°C"
+    min_safe: 10.0
+    max_safe: 28.0
+    critical_high: 32.0
+    weight: 0.5
+
+  conductivity:
+    unit: "µS/cm"
+    min_safe: 100.0
+    max_safe: 800.0
+    critical_high: 1200.0
+    weight: 0.8
+
+  salinity:
+    unit: "index/ppt"
+    min_safe: 0.0
+    max_safe: 0.5
+    critical_high: 1.0
+    weight: 0.9
+
+  total_dissolved_solids:
+    unit: "mg/L"
+    min_safe: 50.0
+    max_safe: 500.0
+    critical_high: 1000.0
+    weight: 0.7
+
+# Target Classification Categories:
+# 1. "Good": All core parameters within safe bounds.
+# 2. "Needs Treatment": Minor threshold violations or elevated turbidity/conductivity that can be corrected with standard filtration/disinfection.
+# 3. "Poor": Severe deviations (e.g. severe DO depletion, extreme pH, dangerous turbidity) requiring emergency intervention or shutoff.
+categories:
+  - "Good"
+  - "Needs Treatment"
+  - "Poor"
+
+# Alert rules and severity triggers
+alerts:
+  severities:
+    - INFO
+    - WARNING
+    - CRITICAL
+  forecasting_horizons_hours:
+    - 6
+    - 24
